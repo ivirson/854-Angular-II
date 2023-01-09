@@ -1,0 +1,132 @@
+<div class="container mt-4">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <fieldset>
+      <legend class="mt-4 mb-3">Dados pessoais</legend>
+      <div class="row">
+        <div class="col-4">
+          <mat-form-field appearance="outline">
+            <mat-label>Nome</mat-label>
+            <input formControlName="name" matInput />
+            <mat-error>Campo nome inválido</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-3">
+          <mat-form-field appearance="outline">
+            <mat-label>Profissão</mat-label>
+            <input formControlName="profession" matInput />
+            <mat-error>Campo profissão inválido</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field appearance="outline">
+            <mat-label>Data de nascimento</mat-label>
+            <input type="date" formControlName="birthDate" matInput />
+            <mat-error>Campo data de nascimento inválido</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field appearance="outline">
+            <mat-label>CPF</mat-label>
+            <input
+              formControlName="documentNumber"
+              mask="000.000.000-00"
+              matInput
+            />
+            <mat-error>Campo CPF inválido</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset formGroupName="address">
+      <legend class="mt-4 mb-3">Dados de endereço</legend>
+      <div class="row">
+        <div class="col-2">
+          <mat-form-field appearance="outline">
+            <mat-label>CEP</mat-label>
+            <input formControlName="zipCode" mask="00.000-000" matInput />
+            <mat-error>Campo CEP inválido</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-5">
+          <mat-form-field appearance="outline">
+            <mat-label>Rua</mat-label>
+            <input formControlName="street" matInput />
+            <mat-error>Campo rua inválido</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-2">
+          <mat-form-field appearance="outline">
+            <mat-label>Número</mat-label>
+            <input formControlName="number" mask="0999" matInput />
+            <mat-error>Campo número inválido</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-3">
+          <mat-form-field appearance="outline">
+            <mat-label>Complemento</mat-label>
+            <input formControlName="complement" matInput />
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-4">
+          <mat-form-field appearance="outline">
+            <mat-label>Bairro</mat-label>
+            <input formControlName="neighborhood" matInput />
+            <mat-error>Campo bairro inválido</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-4">
+          <mat-form-field appearance="outline">
+            <mat-label>Cidade</mat-label>
+            <input formControlName="city" matInput />
+            <mat-error>Campo cidade inválido</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-4">
+          <mat-form-field appearance="outline">
+            <mat-label>Estado</mat-label>
+            <mat-select formControlName="state">
+              <mat-option *ngFor="let state of states" [value]="state.abbr">{{
+                state.name
+              }}</mat-option>
+            </mat-select>
+            <mat-error>Campo estado inválido</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset formGroupName="contact">
+      <legend class="mt-4 mb-3">Dados contato</legend>
+      <div class="row">
+        <div class="col-6">
+          <mat-form-field appearance="outline">
+            <mat-label>Telefone</mat-label>
+            <input formControlName="phone" mask="(00) 0 0000-0000" matInput />
+            <mat-error>Campo telefone inválido</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-6">
+          <mat-form-field appearance="outline">
+            <mat-label>E-mail</mat-label>
+            <input formControlName="email" matInput />
+            <mat-error>Campo e-mail inválido</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+    </fieldset>
+
+    <div class="mt-3">
+      <button
+        type="submit"
+        mat-flat-button
+        color="primary"
+        [disabled]="form.invalid"
+      >
+        Salvar
+      </button>
+    </div>
+  </form>
+</div>
