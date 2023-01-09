@@ -52,7 +52,13 @@ export class ProductCreateComponent {
 
   public onSubmit(): void {
     const product = this.form.getRawValue();
-    this.productsService.saveProduct(product);
+
+    if (this.productId) {
+      this.productsService.editProduct(product);
+    } else {
+      this.productsService.saveProduct(product);
+    }
+
     this.form.reset();
     this.router.navigate(['/products']);
   }
