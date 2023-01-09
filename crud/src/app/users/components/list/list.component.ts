@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { first, Subject, take, takeUntil } from 'rxjs';
 import { User } from '../../models/user.model';
 import { UsersService } from '../../services/users.service';
 
@@ -8,7 +9,9 @@ import { UsersService } from '../../services/users.service';
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.css']
 })
-export class ListComponent implements OnInit {
+export class ListComponent implements OnInit, OnDestroy {
+
+  private unsubscribe = new Subject();
 
   public users!: User[];
 
@@ -22,7 +25,26 @@ export class ListComponent implements OnInit {
   }
 
   public getUsers(): void {
-    this.users = this.usersService.getUsers();
+    this.usersService.getUsers()
+      .pipe(
+        // take(1)
+        // first()
+        takeUntil(this.unsubscribe)
+      )
+      // .subscribe((users: User[]) => {
+      //   this.users = users;
+      // });
+      .subscribe({
+        next: (users: User[]) => {
+          this.users = users;
+        },
+        error: (error: any) => {
+          console.log(error)
+        },
+        complete: () => {
+          console.log('Finalizado!')
+        }
+      });
   }
 
   public editUser(id: string): void {
@@ -32,5 +54,9 @@ export class ListComponent implements OnInit {
   public deleteUser(id: string): void {
     this.usersService.deleteUser(id);
     this.getUsers();
+  }
+
+  ngOnDestroy(): void {
+    this.unsubscribe.complete();
   }
 }
