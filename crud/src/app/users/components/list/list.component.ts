@@ -39,7 +39,7 @@ export class ListComponent implements OnInit, OnDestroy {
           this.users = users;
         },
         error: (error: any) => {
-          console.log(error)
+          console.log('Error message:', error)
         },
         complete: () => {
           console.log('Finalizado!')

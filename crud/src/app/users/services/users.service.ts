@@ -1,5 +1,7 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
+import { GetAddressDataResponse } from '../models/get-address-data-response.model';
 import { State } from '../models/state.model';
 import { User } from '../models/user.model';
 
@@ -8,7 +10,7 @@ import { User } from '../models/user.model';
 })
 export class UsersService {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   public getStatesOfBrazil(): State[] {
     return (
@@ -44,12 +46,17 @@ export class UsersService {
     );
   }
 
+  public getAddressByZipCode(zipCode: string): Observable<GetAddressDataResponse> {
+    return this.http.get<GetAddressDataResponse>(`https://viacep.com.br/ws/${zipCode}/json/`)
+  }
+
   private getUsersList(): User[] {
     return JSON.parse(localStorage.getItem('USERS') || '[]');
   }
 
   public getUsers(): Observable<any> {
     const users = this.getUsersList()
+    // return throwError(() => 'Houve um erro');
     return of(users);
   }
 

@@ -21,6 +21,7 @@ import { UsersComponent } from './users/users.component';
 import { ProductsComponent } from './products/products.component';
 import { ProductsListComponent } from './products/components/products-list/products-list.component';
 import { ProductCreateComponent } from './products/components/product-create/product-create.component';
+import { HttpClientModule } from '@angular/common/http';
 
 const material = [
   MatToolbarModule,
@@ -51,6 +52,7 @@ const material = [
     ReactiveFormsModule,
     NgxMaskDirective,
     NgxMaskPipe,
+    HttpClientModule,
     material
   ],
   providers: [provideNgxMask()],
