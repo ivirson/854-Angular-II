@@ -36,17 +36,23 @@ export class ProductCreateComponent {
   }
 
   private updateForm(): void {
-    const product = this.productsService.getProductById(this.productId);
-    this.form.patchValue(product);
+    this.productsService.getProductById(this.productId).subscribe(
+      {
+        next: (res) => {
+          const product = res
+          product.categoryId = product.categoryId + ""
+          this.form.patchValue(product)
+        }
+      })
   }
 
   private buildForm(): void {
     this.form = new FormGroup({
       id: new FormControl(),
-      name: new FormControl(null, [ Validators.required ]),
-      categoryId: new FormControl(null, [ Validators.required ]),
-      price: new FormControl(null, [ Validators.required ]),
-      quantity: new FormControl(null, [ Validators.required ]),
+      name: new FormControl(null, [Validators.required]),
+      categoryId: new FormControl(null, [Validators.required]),
+      price: new FormControl(null, [Validators.required]),
+      quantity: new FormControl(null, [Validators.required]),
     })
   }
 
@@ -54,9 +60,9 @@ export class ProductCreateComponent {
     const product = this.form.getRawValue();
 
     if (this.productId) {
-      this.productsService.editProduct(product);
+      this.productsService.editProduct(product).subscribe();
     } else {
-      this.productsService.saveProduct(product);
+      this.productsService.saveProduct(product).subscribe();
     }
 
     this.form.reset();

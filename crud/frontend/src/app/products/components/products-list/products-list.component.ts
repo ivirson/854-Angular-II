@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/internal/Observable';
-import { map } from 'rxjs/internal/operators/map';
 import { tap } from 'rxjs/internal/operators/tap';
 import { Product } from '../../models/product.model';
 import { ProductsService } from '../../services/products.service';
@@ -30,10 +29,13 @@ export class ProductsListComponent {
     const listCategories = this.productsService.getCategories();
     this.products$.pipe(tap(products => {
       return products.map(product => {
-        product.category = listCategories.find(category => category.id === product.categoryId)
+        debugger
+        product.category = listCategories.find(category => category.id == product.categoryId)
       })
     }))
-    .subscribe({next: (res) => this.products = res })
+    .subscribe({next: (res) => {
+      console.log(res);
+      this.products = res} })
   }
 
   public editProduct(id: string): void {
@@ -41,7 +43,7 @@ export class ProductsListComponent {
   }
 
   public deleteProduct(id: string): void {
-    this.productsService.deleteProduct(id);
+    this.productsService.deleteProduct(id).subscribe();
     this.getProducts();
   }
 }

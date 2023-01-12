@@ -1,8 +1,8 @@
+import { Product } from './../models/product.model';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { ProductCategory } from '../models/product-category.model';
-import { Product } from '../models/product.model';
 
 @Injectable({
   providedIn: 'root'
@@ -45,35 +45,20 @@ export class ProductsService {
     return this.http.get<Product[]>('http://localhost:5000/products');
   }
 
-  public saveProduct(product: Product): void {
-    product = {
-      ...product,
-      id: crypto.randomUUID()
-    }
-
-    const products = this.getProducts();
-
-    products.push(product);
-    this.setLocalSorageData(products);
+  public saveProduct(product: Product): Observable<any> {
+    return this.http.post<any>('http://localhost:5000/products', product);
   }
 
-  public getProductById(id: string): Product {
-    const products = this.getProducts();
-    return products.find(product => product.id === id) as Product;
+  public getProductById(id: string): Observable<Product> {
+    return this.http.get<Product>(`http://localhost:5000/products/${id}`);
   }
 
-  public deleteProduct(id: string): void {
-    const products = this.getProducts();
-    const productIndex = products.findIndex(product => product.id === id);
-    products.splice(productIndex, 1);
-    this.setLocalSorageData(products);
+  public deleteProduct(id: string): Observable<any> {
+    return this.http.delete<any>(`http://localhost:5000/products/${id}`);
   }
 
-  public editProduct(product: Product): void {
-    const products = this.getProducts();
-    const index = products.findIndex(u => u.id === product.id);
-    products[index] = product;
-    this.setLocalSorageData(products);
+  public editProduct(product: Product): Observable<any>{
+    return this.http.put<any>(`http://localhost:5000/products/${product.id}`, product);
   }
 
   private setLocalSorageData(data: Product[]): void {
