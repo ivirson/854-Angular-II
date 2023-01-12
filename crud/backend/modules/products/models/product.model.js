@@ -19,6 +19,10 @@ const Product = database.define('Product', {
   quantity: {
     type: Sequelize.INTEGER,
     allowNull: false
+  },
+  categoryId: {
+    type: Sequelize.INTEGER,
+    allowNull: false
   }
 });
 
