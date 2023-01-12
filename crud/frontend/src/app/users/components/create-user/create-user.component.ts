@@ -4,7 +4,7 @@ import { User } from '../../models/user.model';
 import { UsersService } from '../../services/users.service';
 import { State } from '../../models/state.model';
 import { ActivatedRoute, Router } from '@angular/router';
-import { debounceTime, distinctUntilChanged, filter, map, tap } from 'rxjs';
+import { debounceTime, distinctUntilChanged, filter, map, tap, first } from 'rxjs';
 import { GetAddressDataResponse } from '../../models/get-address-data-response.model';
 import { Address } from '../../models/address.model';
 
@@ -37,31 +37,42 @@ export class CreateUserComponent implements OnInit {
   }
 
   private updateForm(): void {
-    const user = this.usersService.getUserById(this.userId);
-    this.form.patchValue(user);
+    this.usersService.getUserById(this.userId)
+      .pipe(
+        first()
+      )
+      .subscribe({
+        next: (res) => {
+          const user = res;
+          this.form.patchValue(user);
+        },
+        error: (err) => {
+          console.log(err);
+        }
+      });
   }
 
   private buildForm(): void {
     this.form = new FormGroup({
       id: new FormControl(),
-      name: new FormControl(null, [ Validators.required ]),
-      profession: new FormControl(null, [ Validators.required ]),
-      birthDate: new FormControl(null, [ Validators.required ]),
-      documentNumber: new FormControl(null, [ Validators.required ]),
-      address: new FormGroup({
-        id: new FormControl(),
-        zipCode: new FormControl(null, [ Validators.required ]),
-        street: new FormControl(null, [ Validators.required ]),
-        number: new FormControl(null, [ Validators.required ]),
-        complement: new FormControl(),
-        neighborhood: new FormControl(null, [ Validators.required ]),
-        city: new FormControl(null, [ Validators.required ]),
-        state: new FormControl(null, [ Validators.required ])
-      }),
-      contact: new FormGroup({
-        phone: new FormControl(null, [ Validators.required ]),
-        email: new FormControl(null, [ Validators.required ])
-      })
+      name: new FormControl(null, [Validators.required]),
+      profession: new FormControl(null, [Validators.required]),
+      birthDate: new FormControl(null, [Validators.required]),
+      documentNumber: new FormControl(null, [Validators.required]),
+      // address: new FormGroup({
+      //   id: new FormControl(),
+      //   zipCode: new FormControl(null, [ Validators.required ]),
+      //   street: new FormControl(null, [ Validators.required ]),
+      //   number: new FormControl(null, [ Validators.required ]),
+      //   complement: new FormControl(),
+      //   neighborhood: new FormControl(null, [ Validators.required ]),
+      //   city: new FormControl(null, [ Validators.required ]),
+      //   state: new FormControl(null, [ Validators.required ])
+      // }),
+      // contact: new FormGroup({
+      //   phone: new FormControl(null, [ Validators.required ]),
+      //   email: new FormControl(null, [ Validators.required ])
+      // })
     })
   }
 
@@ -112,9 +123,25 @@ export class CreateUserComponent implements OnInit {
     const user = this.form.getRawValue();
 
     if (this.userId) {
-      this.usersService.editUser(user);
+      this.usersService.editUser(user)
+        .subscribe({
+          next: (res) => {
+            console.log(res);
+          },
+          error: (err) => {
+            console.log(err);
+          }
+        });
     } else {
-      this.usersService.saveUser(user);
+      this.usersService.saveUser(user)
+        .subscribe({
+          next: (res) => {
+            console.log(res);
+          },
+          error: (err) => {
+            console.log(err);
+          }
+        });
     }
 
     this.form.reset();

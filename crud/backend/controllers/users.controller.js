@@ -27,34 +27,37 @@ class UsersController {
         });
       }
 
-      addressesRepository.findById(user.addressId, (err, address) => {
-        if (err) {
-          return res.json({
-            message: "Houve um erro ao consultar os dados de endereço",
-            err
-          });
-        }
+      return res.json(user);
 
-        user.address = address;
+      // addressesRepository.findById(user.addressId, (err, address) => {
+      //   if (err) {
+      //     return res.json({
+      //       message: "Houve um erro ao consultar os dados de endereço",
+      //       err
+      //     });
+      //   }
 
-        contactsRespository.findById(user.contactId, (err, contact) => {
-          if (err) {
-            return res.json({
-              message: "Houve um erro ao consultar os dadosde contato",
-              err
-            });
-          }
+      //   user.address = address;
 
-          user.contact = contact
+      //   contactsRespository.findById(user.contactId, (err, contact) => {
+      //     if (err) {
+      //       return res.json({
+      //         message: "Houve um erro ao consultar os dadosde contato",
+      //         err
+      //       });
+      //     }
+
+      //     user.contact = contact
           
-          return res.json(user);
-        })
-      })
+      //     return res.json(user);
+      //   })
+      // })
     })
   }
 
   saveUser(req, res) {
     const { address, contact, ...user } = req.body;
+    console.log(req.body);
     usersRepository.saveUser(user, (err) => {
       if (err) {
         return res.json({

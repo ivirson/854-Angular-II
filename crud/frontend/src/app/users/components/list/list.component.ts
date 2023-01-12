@@ -1,3 +1,4 @@
+import { UserResponse } from './../../models/user-response.model';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { first, Subject, take, takeUntil } from 'rxjs';
@@ -52,8 +53,18 @@ export class ListComponent implements OnInit, OnDestroy {
   }
 
   public deleteUser(id: string): void {
-    this.usersService.deleteUser(id);
-    this.getUsers();
+    this.usersService.deleteUser(id)
+    .subscribe({
+      next: (res: UserResponse) => {
+        console.log(res);
+      },
+      error: (error: any) => {
+        console.log('Error message:', error)
+      },
+      complete: () => {
+        this.getUsers();
+      }
+    });
   }
 
   ngOnDestroy(): void {

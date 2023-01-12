@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
 import { GetAddressDataResponse } from '../models/get-address-data-response.model';
 import { State } from '../models/state.model';
+import { UserResponse } from '../models/user-response.model';
 import { User } from '../models/user.model';
 
 @Injectable({
@@ -54,45 +55,24 @@ export class UsersService {
     return JSON.parse(localStorage.getItem('USERS') || '[]');
   }
 
-  public getUsers(): Observable<any> {
-    const users = this.getUsersList()
-    // return throwError(() => 'Houve um erro');
-    return of(users);
+  public getUsers(): Observable<User[]> {
+    return this.http.get<User[]>('http://localhost:5000/users');
   }
 
-  public saveUser(user: User): void {
-    user = {
-      ...user,
-      id: crypto.randomUUID(),
-      address: {
-        ...user.address,
-        id: crypto.randomUUID()
-      }
-    }
-
-    const users = this.getUsersList();
-
-    users.push(user);
-    this.setLocalSorageData(users);
+  public saveUser(user: User): Observable<UserResponse> {
+    return this.http.post<UserResponse>('http://localhost:5000/users', user);
   }
 
-  public getUserById(id: string): User {
-    const users = this.getUsersList();
-    return users.find(user => user.id === id) as User;
+  public getUserById(id: string): Observable<User> {
+    return this.http.get<User>(`http://localhost:5000/users/${id}`);
   }
 
-  public deleteUser(id: string): void {
-    const users = this.getUsersList();
-    const userIndex = users.findIndex(user => user.id === id);
-    users.splice(userIndex, 1);
-    this.setLocalSorageData(users);
+  public deleteUser(id: string): Observable<UserResponse> {
+    return this.http.delete<UserResponse>(`http://localhost:5000/users/${id}`);
   }
 
-  public editUser(user: User): void {
-    const users = this.getUsersList();
-    const index = users.findIndex(u => u.id === user.id);
-    users[index] = user;
-    this.setLocalSorageData(users);
+  public editUser(user: User): Observable<UserResponse> {
+    return this.http.put<UserResponse>(`http://localhost:5000/users/${user.id}`, user)
   }
 
   private setLocalSorageData(data: User[]): void {
