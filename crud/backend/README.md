@@ -1,5 +1,9 @@
-# Passos para executar a aplicação:
+# CRUD Backend
 
-- abrir o terminal na pasta backend
-- rodar `npm i`, pra instalar as dependências
-- rodar `npm start`, pra executar a aplicação
+## Passos para executar a aplicação
+
+1. Abrir um terminal na pasta backend
+
+2. Rodar o comando `npm install`
+
+3. Rodar o comando `npm run swagger-autogen`, para gerar a documentação, que poderá ser visualizada [neste endereço](http://localhost:5000/doc) e servir a aplicação.
