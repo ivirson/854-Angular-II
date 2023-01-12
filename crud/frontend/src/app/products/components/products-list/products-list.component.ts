@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs/internal/Observable';
+import { map } from 'rxjs/internal/operators/map';
+import { tap } from 'rxjs/internal/operators/tap';
 import { Product } from '../../models/product.model';
 import { ProductsService } from '../../services/products.service';
 
@@ -10,6 +13,7 @@ import { ProductsService } from '../../services/products.service';
 })
 export class ProductsListComponent {
 
+  public products$!: Observable<Product[]>;
   public products!: Product[];
 
   constructor(
@@ -22,9 +26,14 @@ export class ProductsListComponent {
   }
 
   public getProducts(): void {
-    this.products = this.productsService.getProducts();
-    console.log(this.products);
-
+    this.products$ = this.productsService.getProductsList();
+    const listCategories = this.productsService.getCategories();
+    this.products$.pipe(tap(products => {
+      return products.map(product => {
+        product.category = listCategories.find(category => category.id === product.categoryId)
+      })
+    }))
+    .subscribe({next: (res) => this.products = res })
   }
 
   public editProduct(id: string): void {

@@ -1,3 +1,5 @@
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { ProductCategory } from '../models/product-category.model';
 import { Product } from '../models/product.model';
@@ -9,24 +11,26 @@ export class ProductsService {
 
   private categories = [
     {
-      id: 'cc47a6b4-9052-11ed-a1eb-0242ac120002',
+      id: '1',
       name: 'Tech'
     },
     {
-      id: 'd926dc38-9052-11ed-a1eb-0242ac120002',
+      id: '2',
       name: 'Beleza'
     },
     {
-      id: 'e2386bac-9052-11ed-a1eb-0242ac120002',
+      id: '3',
       name: 'Auto'
     },
     {
-      id: 'e7fa463c-9052-11ed-a1eb-0242ac120002',
+      id: '4',
       name: 'Saúde'
     }
   ];
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
+
+
 
   public getCategories(): ProductCategory[] {
     return this.categories;
@@ -34,12 +38,11 @@ export class ProductsService {
 
   public getProducts(): Product[] {
     const products = JSON.parse(localStorage.getItem('PRODUCTS') || '[]');
-    return products.map((product: Product) => {
-      return {
-        ...product,
-        category: this.categories.find(category => category.id === product.categoryId)
-      }
-    })
+    return products
+  }
+
+  public getProductsList(): Observable<Product[]> {
+    return this.http.get<Product[]>('http://localhost:5000/products');
   }
 
   public saveProduct(product: Product): void {
