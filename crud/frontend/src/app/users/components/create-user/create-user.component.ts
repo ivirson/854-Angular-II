@@ -59,20 +59,20 @@ export class CreateUserComponent implements OnInit {
       profession: new FormControl(null, [Validators.required]),
       birthDate: new FormControl(null, [Validators.required]),
       documentNumber: new FormControl(null, [Validators.required]),
-      // address: new FormGroup({
-      //   id: new FormControl(),
-      //   zipCode: new FormControl(null, [ Validators.required ]),
-      //   street: new FormControl(null, [ Validators.required ]),
-      //   number: new FormControl(null, [ Validators.required ]),
-      //   complement: new FormControl(),
-      //   neighborhood: new FormControl(null, [ Validators.required ]),
-      //   city: new FormControl(null, [ Validators.required ]),
-      //   state: new FormControl(null, [ Validators.required ])
-      // }),
-      // contact: new FormGroup({
-      //   phone: new FormControl(null, [ Validators.required ]),
-      //   email: new FormControl(null, [ Validators.required ])
-      // })
+      address: new FormGroup({
+        id: new FormControl(),
+        zipCode: new FormControl(null, [ Validators.required ]),
+        street: new FormControl(null, [ Validators.required ]),
+        number: new FormControl(null, [ Validators.required ]),
+        complement: new FormControl(),
+        neighborhood: new FormControl(null, [ Validators.required ]),
+        city: new FormControl(null, [ Validators.required ]),
+        state: new FormControl(null, [ Validators.required ])
+      }),
+      contact: new FormGroup({
+        phone: new FormControl(null, [ Validators.required ]),
+        email: new FormControl(null, [ Validators.required ])
+      })
     })
   }
 
