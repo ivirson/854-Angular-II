@@ -1,8 +1,5 @@
 <div class="container">
   <div class="row my-4">
-    <p *ngIf="!products.length" class="d-flex justify-content-center">
-      Não há produtos cadastrados ainda
-    </p>
     <div class="col-4" *ngFor="let product of products">
       <mat-card class="example-card">
         <mat-card-header>
@@ -14,7 +11,7 @@
         <mat-card-content>
           <p>
             <strong>Categoria:</strong>
-            {{ product.category.name }}
+            {{ product.category?.name }}
           </p>
           <p>
             <strong>Preço:</strong>
@@ -26,10 +23,18 @@
           </p>
         </mat-card-content>
         <mat-card-actions class="d-flex justify-content-end">
-          <button mat-icon-button color="primary" (click)="editProduct(product.id)">
+          <button
+            mat-icon-button
+            color="primary"
+            (click)="editProduct(product.id)"
+          >
             <mat-icon>edit</mat-icon>
           </button>
-          <button mat-icon-button color="warn" (click)="deleteProduct(product.id)">
+          <button
+            mat-icon-button
+            color="warn"
+            (click)="deleteProduct(product.id)"
+          >
             <mat-icon>delete</mat-icon>
           </button>
         </mat-card-actions>
