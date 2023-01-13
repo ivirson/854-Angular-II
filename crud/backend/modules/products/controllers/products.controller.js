@@ -1,13 +1,13 @@
-const productsRepositories = require("../repositories/products.repositories");
+const productsRepository = require("../repositories/products.repository");
 
 class ProductsController {
   async findAll(req, res) {
-    // #swagger.tags = ['Product']
-    // #swagger.description = 'Endpoint para obter um produto.'
-    const products = await productsRepositories.findAll();
+    // #swagger.tags = ["Product"]
+    // #swagger.description = "Endpoint para obter um produto."
+    const products = await productsRepository.findAll();
     // #swagger.responses[200] = { 
     //   schema: { $ref: "#/models/Product" },
-    //   description: 'Produto encontrado.' 
+    //   description: "Produto encontrado." 
     // } 
     return res.json(products);
   }
@@ -16,13 +16,13 @@ class ProductsController {
     const {
       id
     } = req.params;
-    const user = await productsRepositories.findOne(id);
+    const user = await productsRepository.findOne(id);
     return res.json(user);
   }
 
   async create(req, res) {
     const user = req.body;
-    productsRepositories.create(user);
+    productsRepository.create(user);
     return res.json();
   }
 
@@ -31,7 +31,7 @@ class ProductsController {
     const {
       id
     } = req.params;
-    productsRepositories.update(id, user);
+    productsRepository.update(id, user);
     return res.json();
   }
 
@@ -39,7 +39,7 @@ class ProductsController {
     const {
       id
     } = req.params;
-    productsRepositories.delete(id);
+    productsRepository.delete(id);
     return res.json();
   }
 }

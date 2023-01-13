@@ -1,7 +1,7 @@
-const swaggerAutogen = require('swagger-autogen')();
+const swaggerAutogen = require("swagger-autogen")();
 
-const outputFile = './swagger_output.json';
-const endpointsFiles = ['./router.js'];
+const outputFile = "./swagger_output.json";
+const endpointsFiles = ["./router.js"];
 
 const doc = {
   info: {
@@ -11,9 +11,9 @@ const doc = {
   },
   host: "localhost:5000",
   basePath: "/",
-  schemes: ['http', 'https'],
-  consumes: ['application/json'],
-  produces: ['application/json'],
+  schemes: ["http", "https"],
+  consumes: ["application/json"],
+  produces: ["application/json"],
   tags: [{
     "name": "Endpoints",
     "description": "User and Product endpoints"
@@ -66,5 +66,5 @@ const doc = {
 }
 
 swaggerAutogen(outputFile, endpointsFiles, doc).then(() => {
-  require('./app')
+  require("./app")
 });
