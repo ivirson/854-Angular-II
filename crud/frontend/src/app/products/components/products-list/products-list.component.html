@@ -1,5 +1,8 @@
 <div class="container">
   <div class="row my-4">
+    <p *ngIf="!products?.length" class="d-flex justify-content-center">
+      Não há produtos cadastrados ainda
+    </p>
     <div class="col-4" *ngFor="let product of products">
       <mat-card class="example-card">
         <mat-card-header>
