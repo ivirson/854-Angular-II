@@ -12,21 +12,7 @@ const routes: Routes = [
   },
   {
     path: 'products',
-    component: UsersComponent,
-    children: [
-      {
-        path: 'create',
-        component: ProductCreateComponent
-      },
-      {
-        path: 'edit/:id',
-        component: ProductCreateComponent
-      },
-      {
-        path: '',
-        component: ProductsListComponent
-      }
-    ]
+    loadChildren: () => import('./products/products.module').then(m => m.ProductsModule)
   },
   {
     path: '',

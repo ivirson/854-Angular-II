@@ -16,36 +16,29 @@ import { AppComponent } from './app.component';
 import { ProductCreateComponent } from './products/components/product-create/product-create.component';
 import { ProductsListComponent } from './products/components/products-list/products-list.component';
 import { ProductsComponent } from './products/products.component';
+import { ProductsModule } from './products/products.module';
 import { NotFoundComponent } from './users/components/not-found/not-found.component';
 import { UsersModule } from './users/users.module';
 
 const material = [
-  MatToolbarModule,
-  MatIconModule,
-  MatButtonModule,
-  MatCardModule,
-  MatDividerModule,
-  MatFormFieldModule,
-  MatSelectModule,
-  MatInputModule
+
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
-    NotFoundComponent,
-    ProductsComponent,
-    ProductsListComponent,
-    ProductCreateComponent
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    ReactiveFormsModule,
     HttpClientModule,
-    material,
-    UsersModule
+    MatToolbarModule,
+    MatIconModule,
+    MatButtonModule,
+    UsersModule,
+    ProductsModule
   ],
   bootstrap: [AppComponent]
 })
