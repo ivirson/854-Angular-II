@@ -36,16 +36,23 @@ export class ProductsService {
     return this.categories;
   }
 
-  public getProducts(): Product[] {
-    const products = JSON.parse(localStorage.getItem('PRODUCTS') || '[]');
-    return products
-  }
-
-  public getProductsList(): Observable<Product[]> {
+  public getProducts(): Observable<Product[]> {
+    // const token = localStorage.getItem('USER_TOKEN');
+    // const options = {
+    //   headers: {
+    //     'Authorization': `Bearer ${token}`
+    //   }
+    // };
     return this.http.get<Product[]>('http://localhost:5000/products');
   }
 
   public saveProduct(product: Product): Observable<any> {
+    // const token = localStorage.getItem('USER_TOKEN');
+    // const options = {
+    //   headers: {
+    //     'Authorization': `Bearer ${token}`
+    //   }
+    // };
     return this.http.post<any>('http://localhost:5000/products', product);
   }
 

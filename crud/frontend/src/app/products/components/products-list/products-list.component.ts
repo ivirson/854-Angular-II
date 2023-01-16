@@ -25,11 +25,10 @@ export class ProductsListComponent {
   }
 
   public getProducts(): void {
-    this.products$ = this.productsService.getProductsList();
+    this.products$ = this.productsService.getProducts();
     const listCategories = this.productsService.getCategories();
     this.products$.pipe(tap(products => {
       return products.map(product => {
-        debugger
         product.category = listCategories.find(category => category.id == product.categoryId)
       })
     }))

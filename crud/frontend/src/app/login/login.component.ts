@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { LoginService } from './services/login.service';
 
 @Component({
@@ -11,7 +12,10 @@ export class LoginComponent implements OnInit {
 
   public form!: FormGroup;
 
-  constructor(private loginService: LoginService) { }
+  constructor(
+    private loginService: LoginService,
+    private router: Router
+  ) { }
 
   ngOnInit() {
     this.buildForm();
@@ -29,7 +33,10 @@ export class LoginComponent implements OnInit {
     this.loginService.login(payload)
       .subscribe({
         next: (res) => {
-          console.log(res)
+          console.log(res);
+          localStorage.setItem('USER_TOKEN', res.token);
+          localStorage.setItem('USER', JSON.stringify(res.user));
+          this.router.navigate(['/']);
         },
         error: (err) => {
           console.log(err)
