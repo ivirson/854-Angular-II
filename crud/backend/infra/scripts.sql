@@ -6,4 +6,3 @@ DROP TABLE users;
 DROP TABLE addresses;
 DROP TABLE contacts;
 DROP TABLE products;
-DROP TABLE categories;

@@ -1,9 +1,9 @@
-const Sequelize = require('sequelize');
-const database = require('../../../infra/db');
-const Address = require('./address.model');
-const Contact = require('./contact.model');
+const Sequelize = require("sequelize");
+const database = require("../../../infra/db");
+const Address = require("./address.model");
+const Contact = require("./contact.model");
 
-const User = database.define('User', {
+const User = database.define("User", {
   id: {
     type: Sequelize.INTEGER,
     autoIncrement: true,
@@ -24,26 +24,36 @@ const User = database.define('User', {
   },
   documentNumber: {
     type: Sequelize.STRING,
+    allowNull: false,
+    unique: true
+  },
+  username: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    unique: true
+  },
+  password: {
+    type: Sequelize.STRING,
     allowNull: false
   }
 });
 
 User.hasOne(Address, {
-  as: 'address',
+  as: "address",
   foreignKey: {
     allowNull: false,
-    name: 'userId'
+    name: "userId"
   },
-  onDelete: 'cascade'
+  onDelete: "cascade"
 });
 
 User.hasOne(Contact, {
-  as: 'contact',
+  as: "contact",
   foreignKey: {
     allowNull: false,
-    name: 'userId'
+    name: "userId"
   },
-  onDelete: 'cascade'
+  onDelete: "cascade"
 });
 
 module.exports = User;

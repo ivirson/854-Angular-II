@@ -1,7 +1,7 @@
-const Sequelize = require('sequelize');
-const database = require('../../../infra/db');
+const Sequelize = require("sequelize");
+const database = require("../../../infra/db");
 
-const Contact = database.define('Contact', {
+const Contact = database.define("Contact", {
   id: {
     type: Sequelize.INTEGER,
     autoIncrement: true,

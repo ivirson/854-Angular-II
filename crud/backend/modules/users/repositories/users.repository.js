@@ -9,11 +9,11 @@ class UsersRepository {
     const users = await User.findAll({
       include: [{
           model: Address,
-          as: 'address'
+          as: "address"
         },
         {
           model: Contact,
-          as: 'contact'
+          as: "contact"
         }
       ]
     });
@@ -28,11 +28,11 @@ class UsersRepository {
       },
       include: [{
           model: Address,
-          as: 'address'
+          as: "address"
         },
         {
           model: Contact,
-          as: 'contact'
+          as: "contact"
         }
       ]
     });
@@ -62,7 +62,7 @@ class UsersRepository {
       });
 
     } catch (error) {
-      console.log('Error stack:', error);
+      console.log("Error stack:", error);
     }
   }
 
@@ -101,7 +101,7 @@ class UsersRepository {
       );
 
     } catch (error) {
-      console.log('Error stack:', error);
+      console.log("Error stack:", error);
     }
   }
 
@@ -115,7 +115,7 @@ class UsersRepository {
         }
       });
     } catch (error) {
-      console.log('Error stack:', error);
+      console.log("Error stack:", error);
     }
   }
 }
