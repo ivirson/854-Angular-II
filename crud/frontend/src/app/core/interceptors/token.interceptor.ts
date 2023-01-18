@@ -7,6 +7,7 @@ import {
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import { LocalStorageKeysEnum } from '../constants/local-storage-keys.enum';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
@@ -21,7 +22,7 @@ export class TokenInterceptor implements HttpInterceptor {
       return next.handle(request);
     }
 
-    const token = localStorage.getItem('USER_TOKEN');
+    const token = localStorage.getItem(LocalStorageKeysEnum.USER_TOKEN);
 
     if (!token) {
       this.router.navigate(['/login']);
@@ -29,7 +30,7 @@ export class TokenInterceptor implements HttpInterceptor {
 
     const modifiedRequest = request.clone({
       headers: request.headers.set('Authorization', `Bearer ${token}`)
-    })
+    });
 
     return next.handle(modifiedRequest);
   }

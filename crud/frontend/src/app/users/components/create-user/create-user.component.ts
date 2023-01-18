@@ -127,6 +127,7 @@ export class CreateUserComponent implements OnInit {
         .subscribe({
           next: (res) => {
             console.log(res);
+            this.router.navigate(['/users']);
           },
           error: (err) => {
             console.log(err);
@@ -137,15 +138,13 @@ export class CreateUserComponent implements OnInit {
         .subscribe({
           next: (res) => {
             console.log(res);
+            this.router.navigate(['/users']);
           },
           error: (err) => {
             console.log(err);
           }
         });
     }
-
-    this.form.reset();
-    this.router.navigate(['/users']);
   }
 
 }

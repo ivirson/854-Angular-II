@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { CreateUserComponent } from './components/create-user/create-user.component';
 import { ListComponent } from './components/list/list.component';
 import { UsersComponent } from './users.component';
+import { IsAuthenticatedGuard } from '../core/guards/is-authenticated.guard';
 
 const routes: Routes = [
   {
@@ -16,11 +17,13 @@ const routes: Routes = [
       },
       {
         path: 'edit/:id',
-        component: CreateUserComponent
+        component: CreateUserComponent,
+        canActivate: [IsAuthenticatedGuard]
       },
       {
         path: '',
-        component: ListComponent
+        component: ListComponent,
+        canActivate: [IsAuthenticatedGuard]
       }
     ]
   }

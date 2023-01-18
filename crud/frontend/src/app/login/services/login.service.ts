@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { LoginRequest } from '../models/login-request.model';
 import { LoginResponse } from '../models/login-response.model';
 import { Router } from '@angular/router';
+import { LocalStorageKeysEnum } from 'src/app/core/constants/local-storage-keys.enum';
 
 @Injectable({
   providedIn: 'root'
@@ -20,8 +21,8 @@ export class LoginService {
   }
 
   public logout(): void {
-    localStorage.removeItem('USER_TOKEN');
-    localStorage.removeItem('USER');
+    localStorage.removeItem(LocalStorageKeysEnum.USER_TOKEN);
+    localStorage.removeItem(LocalStorageKeysEnum.USER);
     this.router.navigate(['/login']);
   }
 

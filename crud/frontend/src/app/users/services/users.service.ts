@@ -51,10 +51,6 @@ export class UsersService {
     return this.http.get<GetAddressDataResponse>(`https://viacep.com.br/ws/${zipCode}/json/`)
   }
 
-  private getUsersList(): User[] {
-    return JSON.parse(localStorage.getItem('USERS') || '[]');
-  }
-
   public getUsers(): Observable<User[]> {
     return this.http.get<User[]>('http://localhost:5000/users');
   }
@@ -73,9 +69,5 @@ export class UsersService {
 
   public editUser(user: User): Observable<UserResponse> {
     return this.http.put<UserResponse>(`http://localhost:5000/users/${user.id}`, user)
-  }
-
-  private setLocalSorageData(data: User[]): void {
-    localStorage.setItem('USERS', JSON.stringify(data));
   }
 }

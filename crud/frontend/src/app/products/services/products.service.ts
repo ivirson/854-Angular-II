@@ -67,8 +67,4 @@ export class ProductsService {
   public editProduct(product: Product): Observable<any> {
     return this.http.put<any>(`http://localhost:5000/products/${product.id}`, product);
   }
-
-  private setLocalSorageData(data: Product[]): void {
-    localStorage.setItem('PRODUCTS', JSON.stringify(data));
-  }
 }

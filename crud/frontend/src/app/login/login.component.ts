@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { LocalStorageKeysEnum } from '../core/constants/local-storage-keys.enum';
 import { LoginService } from './services/login.service';
 
 @Component({
@@ -34,8 +35,8 @@ export class LoginComponent implements OnInit {
       .subscribe({
         next: (res) => {
           console.log(res);
-          localStorage.setItem('USER_TOKEN', res.token);
-          localStorage.setItem('USER', JSON.stringify(res.user));
+          localStorage.setItem(LocalStorageKeysEnum.USER_TOKEN, res.token);
+          localStorage.setItem(LocalStorageKeysEnum.USER, JSON.stringify(res.user));
           this.router.navigate(['/']);
         },
         error: (err) => {
